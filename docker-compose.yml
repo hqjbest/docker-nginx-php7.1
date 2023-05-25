@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./../:/var/www/html
+  php71-fpm:
+    build: ./php7.1-fpm
+    image: php:7.1-fpm-qimao-6
+    volumes:
+      - ./../:/var/www/html
+    extra_hosts:
+        - "dmp.wtzw.com:10.0.1.1"
+        - "test-work.km.com:47.101.50.188"
